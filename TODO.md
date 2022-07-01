@@ -1,0 +1,3 @@
+- Turn off bulbs in night ( 10:00 - 5:30 ) 
+- When in night time, touching will lit up hours
+- 
