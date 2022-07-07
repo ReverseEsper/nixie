@@ -107,7 +107,7 @@ def clock():
             blink = True
         # Sprawdzamy czas
         now = datetime.datetime.now()
-        at23 = now.replace(hour=22,minute=0,second=0)
+        at23 = now.replace(hour=21,minute=0,second=0)
         at05 = now.replace(hour=5,minute=0,second=0)
         tp = IO.input(TOUCH_pin)
         if  now < at23 and  now > at05 or tp:
@@ -123,7 +123,7 @@ def clock():
 
         show_time(blink)
         time.sleep(1)
-
+        print(VISIBLE)
 
 
 clock()
