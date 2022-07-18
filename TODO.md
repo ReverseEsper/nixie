@@ -1,3 +1,3 @@
-- Turn off bulbs in night ( 10:00 - 5:30 ) 
-- When in night time, touching will lit up hours
+- Fix start problem - Sometimes it logic start has to be turn on few times
+- If there is no interenet, touching rod will enable WiFi Access Mode, OR you can set up hours by yourself
 - 

@@ -9,6 +9,7 @@ SHOW_pin = 20
 WAIT_TIME = 0.00001
 VISIBLE = True
 TOUCH_pin = 2
+TOUCH_pin2 = 17
 
 digit_table = {
     0 : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -41,6 +42,7 @@ IO.setup(CLOCK_pin,IO.OUT)
 IO.setup(SHOW_pin,IO.OUT)
 IO.setup(HV_pin,IO.OUT)
 IO.setup(TOUCH_pin,IO.IN)
+IO.setup(TOUCH_pin2,IO.IN)
 
 
 #Put current to output
@@ -110,10 +112,14 @@ def clock():
         at23 = now.replace(hour=21,minute=0,second=0)
         at05 = now.replace(hour=5,minute=0,second=0)
         tp = IO.input(TOUCH_pin)
+        tp2 = IO.input(TOUCH_pin2)
         if  now < at23 and  now > at05 or tp:
             if not VISIBLE:
                 VISIBLE = True
                 IO.output(HV_pin,1)
+            if tp2:
+                VISIBLE = False
+                IO.output(HV_pin,0)
         else:
             if VISIBLE:
                 VISIBLE = False
