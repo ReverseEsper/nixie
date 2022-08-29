@@ -99,6 +99,6 @@ try:
         else:
             blink = True
         nixie.show_time(blink)
-        time.sleep(1)
+        time.sleep(0.5)
 finally:
     nixie.power_off()
