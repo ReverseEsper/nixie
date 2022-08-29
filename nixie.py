@@ -87,18 +87,40 @@ class Nixie:
         self.update_display()
 
 
+def is_day():
+    now = datetime.datetime.now()
+    hour = now.hour
+    # night is between 22:00 and 7:00
+    if hour < 22 and hour > 7:
+        return True
+
+def is_night():
+    now = datetime.datetime.now()
+    hour = now.hour
+    # night is between 22:00 and 7:00
+    if hour >= 22 and hour <= 7:
+        return True
+
 try:
     nixie  = Nixie()
     nixie.power_on()
 
     blink = False
+    while(True):
+        nixie.power_on()
+        sleep(10)
+        while is_day():
+            if blink:
+                blink = False
+            else:
+                blink = True
+            nixie.show_time(blink)
+            time.sleep(1)
+        nixie.power_off()
+        sleep(10)
+        while is_night():
+            sleep(60)
 
-    while True:
-        if blink:
-            blink = False
-        else:
-            blink = True
-        nixie.show_time(blink)
-        time.sleep(1)
+
 finally:
     nixie.power_off()
