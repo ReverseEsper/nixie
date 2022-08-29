@@ -70,7 +70,6 @@ class Nixie:
         else:
             digit_map[5]=0
             
-
         for bit in digit_map:
             self.send_bit(bit)
 
