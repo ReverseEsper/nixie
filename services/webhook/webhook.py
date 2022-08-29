@@ -26,10 +26,9 @@ def githubIssue():
         for commit in data["commits"]:
             if commit['modified']:
                 print(f"Modified File: {commit['modified']}")
-                if 'webhook_service/webhook.py' in commit['modified']:
-                    logging.info('Webhook modified, has to restart service')
-                    call(["systemctl", "daemon-reload"])
-                    call(["systemctl", "restart", "nixie_webhook_clock.service"])
+                if 'nixie.py' in commit['modified']:
+                    logging.info('Nixie refreshed, has to restart service')
+                    call(["systemctl", "restart", "nixie_clock.service"])
                     logging.info('Service Restarted. Actaully that should not show...')
                                 
         
