@@ -68,12 +68,12 @@ class Nixie:
     def push_digit(self,character,dot=False):
         digit_map = self.digit_table[character]
         if dot:
-            self.digit_map[5]=1
+            digit_map[5]=1
         else:
-            self.digit_map[5]=0
+            digit_map[5]=0
             
 
-        for bit in self.digit_map:
+        for bit in digit_map:
             self.send_bit(bit)
 
     def show_time(self,dot=False):
