@@ -116,6 +116,8 @@ try:
             time.sleep(1)
         nixie.power_off()
         sleep(10)
+        while(not is_day()):
+            sleep(10)
 
 finally:
     nixie.power_off()
