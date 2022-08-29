@@ -19,7 +19,7 @@ def githubIssue():
     data = request.json
     ##pp (data)
     print ("Wydaje mi się, ze jest coś do pociągnięcia")
-    g = git.cmd.Git("/root/Git/nixie")
+    g = git.cmd.Git("/home/pi/git/nixie")
     g.pull()
     # Check if webhook was modified
     if "commits" in data:
