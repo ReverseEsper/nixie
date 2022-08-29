@@ -4,7 +4,7 @@ After=multi-user.target
 [Service]
 Type=idle
 User=root
-ExecStart=/usr/bin/python3 /root/Git/nixie/nixie.py
+ExecStart=/usr/bin/python3 /home/pi/git/nixie/nixie.py
 Restart=always
 RestartSec=0
 
