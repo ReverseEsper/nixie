@@ -4,7 +4,7 @@ After=multi-user.target
 [Service]
 Type=idle
 User=root
-ExecStart=/usr/bin/python3 /root/Git/nixie/services/nixie_webhook/nixie.py
+ExecStart=/usr/bin/python3 /home/pi/git/nixie/services/webhook/webhook.py
 Restart=always
 RestartSec=0
 
