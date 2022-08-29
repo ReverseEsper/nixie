@@ -90,17 +90,18 @@ class Nixie:
         self.update_display()
 
 
-nixie  = Nixie()
-nixie.power_on()
+try:
+    nixie  = Nixie()
+    nixie.power_on()
 
+    blink = False
 
-blink = False
-while True:
-    if blink:
-        blink = False
-    else:
-        blink = True
-    nixie.show_time(blink)
-    time.sleep(1)
-
-nixie.power_off()
+    while True:
+        if blink:
+            blink = False
+        else:
+            blink = True
+        nixie.show_time(blink)
+        time.sleep(1)
+finally:
+    nixie.power_off()
