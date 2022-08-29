@@ -107,20 +107,12 @@ try:
 
     blink = False
     while(True):
-        nixie.power_on()
-        sleep(10)
-        while is_day():
-            if blink:
-                blink = False
-            else:
-                blink = True
-            nixie.show_time(blink)
-            time.sleep(1)
-        # nixie.power_off()
-        # sleep(10)
-        # while is_night():
-        #     sleep(60)
-
+        if blink:
+            blink = False
+        else:
+            blink = True
+        nixie.show_time(blink)
+        time.sleep(1)
 
 finally:
     nixie.power_off()
