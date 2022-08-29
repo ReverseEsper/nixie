@@ -7,6 +7,7 @@ import logging
 
 from subprocess import call
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -22,6 +23,9 @@ def githubIssue():
     g = git.cmd.Git("/home/pi/git/nixie")
     g.pull()
     # Check if webhook was modified
+
+    print (data)
+    
     if "commits" in data:
         for commit in data["commits"]:
             if commit['modified']:
