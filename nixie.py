@@ -76,7 +76,7 @@ class Nixie:
         for bit in self.digit_map:
             self.send_bit(bit)
 
-    def show_time(dot=False):
+    def show_time(self,dot=False):
         now = datetime.datetime.now()
         min_last = now.minute%10
         min_first = int(now.minute/10)
