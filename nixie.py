@@ -94,12 +94,6 @@ def is_day():
     if hour < 22 and hour > 7:
         return True
 
-def is_night():
-    now = datetime.datetime.now()
-    hour = now.hour
-    # night is between 22:00 and 7:00
-    if hour >= 22 and hour <= 7:
-        return True
 
 try:
     nixie  = Nixie()
@@ -113,7 +107,7 @@ try:
             else:
                 blink = True
             nixie.show_time(blink)
-            time.sleep(1)
+            time.sleep(0.5)
         nixie.power_off()
         sleep(10)
         while(not is_day()):
