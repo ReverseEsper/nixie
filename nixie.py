@@ -43,11 +43,9 @@ class Nixie:
     '''
 
     def power_on(self):
-        #Put current to output
         IO.output(self.HV_pin,1)
 
     def power_off(self):
-        #Put current to output
         IO.output(self.HV_pin,0)
 
     def update_display(self):

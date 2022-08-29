@@ -24,7 +24,6 @@ def githubIssue():
     g.pull()
     # Check if webhook was modified
 
-    print (data)
     
     if "commits" in data:
         for commit in data["commits"]:
