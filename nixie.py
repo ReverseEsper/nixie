@@ -25,13 +25,14 @@ class Nixie:
         11 :[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     }
 
-    def __init__(self)
+    def __init__(self):
         IO.setwarnings(False)           # do not show any warnings
         IO.setmode (IO.BCM)        # programming the GPIO by BCM pin numbers. (like PIN29 as‘GPIO5’)
         IO.setup(self.DATA_pin,IO.OUT)            # initialize GPIO Pins as an output.
         IO.setup(self.CLOCK_pin,IO.OUT)
         IO.setup(self.SHOW_pin,IO.OUT)
         IO.setup(self.HV_pin,IO.OUT)
+
 
     '''
     Timecheet stats :
