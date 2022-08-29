@@ -1,0 +1,12 @@
+[Unit]
+Description=Webhook Service for Nixie Project
+After=multi-user.target
+[Service]
+Type=idle
+User=root
+ExecStart=/usr/bin/python3 /root/Git/nixie/services/nixie_webhook/nixie.py
+Restart=always
+RestartSec=0
+
+[Install]
+WantedBy=multi-user.target
