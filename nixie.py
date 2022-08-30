@@ -98,23 +98,20 @@ def is_day():
 # Should turn off during night and turn on during day
 try:
     nixie  = Nixie()
-    nixie.power_on()
 
     blink = False
     while(True):
+        nixie.power_on()
         while(is_day()):
-            if blink:
-                blink = False
-            else:
-                blink = True
+            blink = not blink
             nixie.show_time(blink)
             time.sleep(1)
         nixie.power_off()
         logging.info('Out of Day Loop')
-        sleep(10)
+        time.sleep(10)
         while(not is_day()):
             logging.info('Nighttime, waiting for a sun')
-            sleep(60)
+            time.sleep(60)
         logging.info('Out of Night Loop')
 
 finally:
