@@ -1,12 +1,2 @@
-import time
-blinker = False
-for i in range(100):
-    blinker = not blinker
-    if blinker:
-        print("Blink")
-    else:
-        print("Not Blink")
-    time.sleep(1)
-    
-
-
+productdir = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools"
+print (productdir)
