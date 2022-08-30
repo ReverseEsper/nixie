@@ -94,7 +94,7 @@ def is_day():
     if hour < 22 and hour > 7:
         return True
 
-
+# Should turn off during night and turn on during day
 try:
     nixie  = Nixie()
     nixie.power_on()
