@@ -1,6 +1,7 @@
 import RPi.GPIO as IO         # calling for header file which helps us use GPIO’s of PI
 import time                             # calling for time to provide delays in program
-import datetime   
+import datetime 
+import logging  
 
 class Nixie:
     HV_pin = 14
@@ -109,9 +110,12 @@ try:
             nixie.show_time(blink)
             time.sleep(1)
         nixie.power_off()
+        logging.info('Out of Day Loop')
         sleep(10)
         while(not is_day()):
-            sleep(10)
+            logging.info('Nighttime, waiting for a sun')
+            sleep(60)
+        logging.info('Out of Night Loop')
 
 finally:
     nixie.power_off()
