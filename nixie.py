@@ -11,7 +11,7 @@ def is_day():
     now = datetime.datetime.now()
     hour = now.hour
     # night is between 22:00 and 7:00
-    if hour < 21 and hour > 7:
+    if hour < 21 and hour > 6:
         return True
     else:
         return False
