@@ -1,9 +1,11 @@
 import asyncio
-import nixie.nixie_stub
+#import nixie.nixie_stub
+import nixie.nixie
 import datetime
 import time
 
-nixie = nixie.nixie_stub.NixieStub()
+#nixie = nixie.nixie_stub.NixieStub()
+nixie = nixie.nixie.Nixie()
 
 def is_day():
     now = datetime.datetime.now()
