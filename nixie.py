@@ -83,10 +83,10 @@ async def seconds():
     while True:
         if mode == "Seconds":
             now = datetime.datetime.now()
-            display_table['Digit4'] = 11
-            display_table['Digit3'] = 11
-            display_table['Digit2'] = now.second%10
-            display_table['Digit1'] = int(now.second/10)
+            display_table['Digit4'] = now.second%10
+            display_table['Digit3'] = int(now.second/10)
+            display_table['Digit2'] = 11
+            display_table['Digit1'] = 11
             display_table['Dot'] = 0
         await asyncio.sleep(0.1)
 
@@ -95,9 +95,9 @@ async def seconds():
 async def swap_modes():
     global mode
     tasks = (
-        { "task": "Zegar", "time": 10},
-        { "task": "Calendar", "time": 10},
-        { "task": "Seconds", "time": 10}
+        { "task": "Zegar", "time": 25},
+        { "task": "Calendar", "time": 5}
+       # { "task": "Seconds", "time": 10}
     )
 
     while True:
