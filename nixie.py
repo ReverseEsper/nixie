@@ -11,8 +11,10 @@ def is_day():
     now = datetime.datetime.now()
     hour = now.hour
     # night is between 22:00 and 7:00
-    if hour < 22 and hour > 7:
+    if hour < 21 and hour > 7:
         return True
+    else:
+        return False
 
 
 mode = "Calendar"
@@ -100,11 +102,18 @@ async def swap_modes():
         { "task": "Calendar", "time": 5}
        # { "task": "Seconds", "time": 10}
     )
+    
 
     while True:
-        for task in tasks:
-            mode = task["task"]
-            await asyncio.sleep(task["time"])
+        if is_day():
+            nixie.power_on()
+            for task in tasks:
+                mode = task["task"]
+                await asyncio.sleep(task["time"])
+        else:
+            # Is Night
+            nixie.power_off()
+            await asyncio.sleep(60)
             
 
 
