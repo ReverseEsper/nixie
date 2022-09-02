@@ -71,10 +71,11 @@ async def calendar():
     while True:
         if mode == "Calendar":
             now = datetime.datetime.now()
-            display_table['Digit4'] = now.day%10
-            display_table['Digit3'] = int(now.day/10)
-            display_table['Digit2'] = now.month%10
-            display_table['Digit1'] = int(now.month/10)
+            display_table['Digit4'] = now.month%10
+            display_table['Digit3'] = int(now.month/10)
+            display_table['Digit2'] = now.day%10
+            display_table['Digit1'] = int(now.day/10)
+
             display_table['Dot'] = 1
         await asyncio.sleep(0.1)
 
