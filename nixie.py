@@ -1,92 +1,9 @@
-import RPi.GPIO as IO         # calling for header file which helps us use GPIO’s of PI
-import time                             # calling for time to provide delays in program
-import datetime 
-import logging  
+import asyncio
+import nixie.nixie_stub
+import datetime
+import time
 
-class Nixie:
-    HV_pin = 14
-    DATA_pin = 16
-    CLOCK_pin = 21       
-    SHOW_pin = 20
-    WAIT_TIME = 0.00001
-    VISIBLE = True
-
-    digit_table = {
-        0 : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        1 : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-        2 : [0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],
-        3 : [0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
-        4 : [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
-        5 : [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
-        6 : [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
-        7 : [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-        8 : [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
-        9 : [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-        10 :[0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
-        11 :[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    }
-
-    def __init__(self):
-        IO.setwarnings(False)           # do not show any warnings
-        IO.setmode (IO.BCM)        # programming the GPIO by BCM pin numbers. (like PIN29 as‘GPIO5’)
-        IO.setup(self.DATA_pin,IO.OUT)            # initialize GPIO Pins as an output.
-        IO.setup(self.CLOCK_pin,IO.OUT)
-        IO.setup(self.SHOW_pin,IO.OUT)
-        IO.setup(self.HV_pin,IO.OUT)
-
-
-    '''
-    Timecheet stats :
-    Max Clock : 4,2MHz @2V (21MHz@4.5V)
-    Pulse Duration : min 120 ns
-    SetUp Time : min 150ns
-    Minimal time: time.sleep(1ms)
-    '''
-
-    def power_on(self):
-        IO.output(self.HV_pin,1)
-
-    def power_off(self):
-        IO.output(self.HV_pin,0)
-
-    def update_display(self):
-        IO.output(self.SHOW_pin,1)            # pull the SHIFT pin high to put the 8 bit data out parallel
-        time.sleep(self.WAIT_TIME)
-        IO.output(self.SHOW_pin,0)            # pull down the SHIFT pin
-
-
-    def send_bit(self,bit):
-        IO.output(self.DATA_pin,bit)            # pull up the data pin for every bit.
-        time.sleep(self.WAIT_TIME)            # wait for 100ms
-        IO.output(self.CLOCK_pin,1)            # pull CLOCK pin high
-        time.sleep(self.WAIT_TIME)
-        IO.output(self.CLOCK_pin,0)            # pull CLOCK pin down, to send a rising edge
-        IO.output(self.DATA_pin,0)            # clear the DATA pin
-
-
-    def push_digit(self,character,dot=False):
-        digit_map = self.digit_table[character]
-        if dot:
-            digit_map[5]=1
-        else:
-            digit_map[5]=0
-            
-        for bit in digit_map:
-            self.send_bit(bit)
-
-    def show_time(self,dot=False):
-        now = datetime.datetime.now()
-        min_last = now.minute%10
-        min_first = int(now.minute/10)
-        h_last = now.hour%10
-        h_first = int(now.hour/10)
-
-        self.push_digit(h_first,dot)
-        self.push_digit(h_last,dot)
-        self.push_digit(min_first,dot)
-        self.push_digit(min_last,dot)
-        self.update_display()
-
+nixie = nixie.nixie_stub.NixieStub()
 
 def is_day():
     now = datetime.datetime.now()
@@ -95,24 +12,103 @@ def is_day():
     if hour < 22 and hour > 7:
         return True
 
-# Should turn off during night and turn on during day
+
+mode = "Calendar"
+refresh_rate = 1
+display_table = {
+    'Digit1': 0,
+    'Digit2': 1,
+    'Digit3': 2,
+    'Digit4': 3,
+    'Dot': 0
+}
+
+async def main():
+    task1 = asyncio.create_task(
+        refresh_display()
+    )
+    task2 = asyncio.create_task(
+        clock()
+    )
+    task3 = asyncio.create_task(
+         calendar()
+    )
+    task4 = asyncio.create_task(
+         swap_modes()
+    )
+    task4 = asyncio.create_task(
+         seconds()
+    )
+    await task1
+
+async def refresh_display():
+    global refresh_rate, display_table
+    while True:
+        nixie.push_digit(display_table['Digit1'],display_table['Dot'])
+        nixie.push_digit(display_table['Digit2'],display_table['Dot'])
+        nixie.push_digit(display_table['Digit3'],display_table['Dot'])
+        nixie.push_digit(display_table['Digit4'],display_table['Dot'])
+        nixie.update_display()
+
+        await asyncio.sleep(refresh_rate)
+
+async def clock():
+    global display_table,mode
+    while True:
+        if mode == "Zegar":
+            now = datetime.datetime.now()
+            display_table['Digit4'] = now.minute%10
+            display_table['Digit3'] = int(now.minute/10)
+            display_table['Digit2'] = now.hour%10
+            display_table['Digit1'] = int(now.hour/10)
+            display_table['Dot'] = now.second%2
+        await asyncio.sleep(0.1)
+
+async def calendar():
+    global display_table,mode
+    while True:
+        if mode == "Calendar":
+            now = datetime.datetime.now()
+            display_table['Digit4'] = now.day%10
+            display_table['Digit3'] = int(now.day/10)
+            display_table['Digit2'] = now.month%10
+            display_table['Digit1'] = int(now.month/10)
+            display_table['Dot'] = 1
+        await asyncio.sleep(0.1)
+
+async def seconds():
+    global display_table,mode
+    while True:
+        if mode == "Seconds":
+            now = datetime.datetime.now()
+            display_table['Digit4'] = 11
+            display_table['Digit3'] = 11
+            display_table['Digit2'] = now.second%10
+            display_table['Digit1'] = int(now.second/10)
+            display_table['Dot'] = 0
+        await asyncio.sleep(0.1)
+
+
+
+async def swap_modes():
+    global mode
+    tasks = (
+        { "task": "Zegar", "time": 10},
+        { "task": "Calendar", "time": 10},
+        { "task": "Seconds", "time": 10}
+    )
+
+    while True:
+        for task in tasks:
+            mode = task["task"]
+            await asyncio.sleep(task["time"])
+            
+
+
+nixie.power_on()
 try:
-    nixie  = Nixie()
-
-    blink = False
-    while(True):
-        nixie.power_on()
-        while(is_day()):
-            blink = not blink
-            nixie.show_time(blink)
-            time.sleep(1)
-        nixie.power_off()
-        logging.info('Out of Day Loop')
-        time.sleep(10)
-        while(not is_day()):
-            logging.info('Nighttime, waiting for a sun')
-            time.sleep(60)
-        logging.info('Out of Night Loop')
-
+    asyncio.run(main())
+except KeyboardInterrupt:
+    print("Ctrl-C Pressed, Finish Task")
 finally:
     nixie.power_off()
