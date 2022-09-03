@@ -104,7 +104,7 @@ async def swap_modes():
     tasks = (
         { "task": "Zegar", "time": 25},
         { "task": "Calendar", "time": 5},
-        { "task": "Seconds", "time": 10}
+        # { "task": "Seconds", "time": 10}
     )
     
 
