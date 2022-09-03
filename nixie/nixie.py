@@ -36,7 +36,7 @@ class Nixie:
         IO.setup(self.SHOW_pin,IO.OUT)
         IO.setup(self.HV_pin,IO.OUT)
         IO.setup(self.TOUCH_pin_1,IO.IN)
-        IO.setup(self.TOUCH_pin_2,IO.IN
+        IO.setup(self.TOUCH_pin_2,IO.IN)
 
 
     '''
