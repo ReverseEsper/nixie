@@ -38,7 +38,7 @@ async def main():
     calendar_task = asyncio.create_task(calendar())
     main_task = asyncio.create_task(swap_modes())
     seconds_task = asyncio.create_task(seconds())
-    buttons_task = asyncio.create_task(watch_buttons())
+    #buttons_task = asyncio.create_task(watch_buttons())
     await main_task
 
 
