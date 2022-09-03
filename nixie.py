@@ -38,6 +38,7 @@ async def main():
     calendar_task = asyncio.create_task(calendar())
     main_task = asyncio.create_task(swap_modes())
     seconds_task = asyncio.create_task(seconds())
+    buttons_task = asyncio.create_task(watch_buttons())
     await main_task
 
 
@@ -113,6 +114,16 @@ async def swap_modes():
             nixie.power_off()
             await asyncio.sleep(60)
             
+async def watch_buttons():
+    global mode
+    while True:
+        old_mode = mode
+        while nixie.button_L_state():
+            mode = "Seconds"
+        mode = old_mode
+ 
+        await asyncio.sleep(0.1)
+
 
 
 nixie.power_on()

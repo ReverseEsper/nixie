@@ -25,6 +25,12 @@ class NixieStub:
     def __init__(self):
         pass
 
+    def button_L_state(self):
+        return  False
+
+    def button_R_state(self):
+        return  False
+
 
     def power_on(self):
         print("Power On")

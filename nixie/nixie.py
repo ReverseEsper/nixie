@@ -10,6 +10,8 @@ class Nixie:
     SHOW_pin = 20
     WAIT_TIME = 0.00001
     VISIBLE = True
+    TOUCH_pin_1 = 2
+    TOUCH_pin_2 = 17
 
     digit_table = {
         0 : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -33,6 +35,8 @@ class Nixie:
         IO.setup(self.CLOCK_pin,IO.OUT)
         IO.setup(self.SHOW_pin,IO.OUT)
         IO.setup(self.HV_pin,IO.OUT)
+        IO.setup(self.TOUCH_pin_1,IO.IN)
+        IO.setup(self.TOUCH_pin_2,IO.IN
 
 
     '''
@@ -42,6 +46,11 @@ class Nixie:
     SetUp Time : min 150ns
     Minimal time: time.sleep(1ms)
     '''
+    def button_L_state(self):
+        return  IO.input(self.TOUCH_pin_1)
+
+    def button_R_state(self):
+        return  IO.input(self.TOUCH_pin_2)
 
     def power_on(self):
         IO.output(self.HV_pin,1)
