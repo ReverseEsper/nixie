@@ -28,9 +28,9 @@ display_table = {
 }
 
 async def main():
-    task1 = asyncio.create_task(
-        refresh_display()
-    )
+    # task1 = asyncio.create_task(
+    #     refresh_display()
+    # )
     task2 = asyncio.create_task(
         clock()
     )
@@ -43,18 +43,19 @@ async def main():
     task4 = asyncio.create_task(
          seconds()
     )
-    await task1
+    await task4
+
 
 async def refresh_display():
     global refresh_rate, display_table
-    while True:
-        nixie.push_digit(display_table['Digit1'],display_table['Dot'])
-        nixie.push_digit(display_table['Digit2'],display_table['Dot'])
-        nixie.push_digit(display_table['Digit3'],display_table['Dot'])
-        nixie.push_digit(display_table['Digit4'],display_table['Dot'])
-        nixie.update_display()
+    # while True:
+    nixie.push_digit(display_table['Digit1'],display_table['Dot'])
+    nixie.push_digit(display_table['Digit2'],display_table['Dot'])
+    nixie.push_digit(display_table['Digit3'],display_table['Dot'])
+    nixie.push_digit(display_table['Digit4'],display_table['Dot'])
+    nixie.update_display()
 
-        await asyncio.sleep(refresh_rate)
+        #await asyncio.sleep(refresh_rate)
 
 async def clock():
     global display_table,mode
@@ -66,7 +67,8 @@ async def clock():
             display_table['Digit2'] = now.hour%10
             display_table['Digit1'] = int(now.hour/10)
             display_table['Dot'] = now.second%2
-        await asyncio.sleep(0.1)
+        await refresh_display()
+        await asyncio.sleep(1)
 
 async def calendar():
     global display_table,mode
@@ -79,7 +81,8 @@ async def calendar():
             display_table['Digit1'] = int(now.day/10)
 
             display_table['Dot'] = 1
-        await asyncio.sleep(0.1)
+        await refresh_display()
+        await asyncio.sleep(1)
 
 async def seconds():
     global display_table,mode
@@ -91,7 +94,8 @@ async def seconds():
             display_table['Digit2'] = 11
             display_table['Digit1'] = 11
             display_table['Dot'] = 0
-        await asyncio.sleep(0.1)
+        await refresh_display()
+        await asyncio.sleep(1)
 
 
 
