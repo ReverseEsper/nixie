@@ -1,11 +1,16 @@
+__TEST__ = False
+
 import asyncio
-#import nixie.nixie_stub
-import nixie.nixie
 import datetime
 import time
 
-#nixie = nixie.nixie_stub.NixieStub()
-nixie = nixie.nixie.Nixie()
+if __TEST__:
+    import nixie.nixie_stub
+    nixie = nixie.nixie_stub.NixieStub()
+else:
+    import nixie.nixie
+    nixie = nixie.nixie.Nixie()
+
 
 def is_day():
     now = datetime.datetime.now()
@@ -28,34 +33,23 @@ display_table = {
 }
 
 async def main():
-    # task1 = asyncio.create_task(
-    #     refresh_display()
-    # )
-    task2 = asyncio.create_task(
-        clock()
-    )
-    task3 = asyncio.create_task(
-         calendar()
-    )
-    task4 = asyncio.create_task(
-         swap_modes()
-    )
-    task4 = asyncio.create_task(
-         seconds()
-    )
-    await task4
+
+    clock_task = asyncio.create_task(clock())
+    calendar_task = asyncio.create_task(calendar())
+    main_task = asyncio.create_task(swap_modes())
+    seconds_task = asyncio.create_task(seconds())
+    await main_task
 
 
 async def refresh_display():
     global refresh_rate, display_table
-    # while True:
+
     nixie.push_digit(display_table['Digit1'],display_table['Dot'])
     nixie.push_digit(display_table['Digit2'],display_table['Dot'])
     nixie.push_digit(display_table['Digit3'],display_table['Dot'])
     nixie.push_digit(display_table['Digit4'],display_table['Dot'])
     nixie.update_display()
 
-        #await asyncio.sleep(refresh_rate)
 
 async def clock():
     global display_table,mode
