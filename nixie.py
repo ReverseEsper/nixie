@@ -120,13 +120,12 @@ async def swap_modes():
 async def watch_buttons():
     global mode
     while True:
-        # old_mode = mode
-        # while nixie.button_R_state():
-        #     mode = "Seconds"
-        # mode = old_mode
-        logging.info("The Button Has been pressed !")
- 
-        await asyncio.sleep(0.1)
+        old_mode = mode
+        while nixie.button_R_state():
+            mode = "Seconds"
+        #mode = old_mode
+            logging.info("The Button Has been pressed !")
+            await asyncio.sleep(0.1)
 
 
 
