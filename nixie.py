@@ -66,7 +66,6 @@ async def clock():
             display_table['Dot'] = now.second%2
         await refresh_display()
         await asyncio.sleep(1)
-        logging.info("Second Has Passed")
 
 async def calendar():
     global display_table,mode
@@ -122,11 +121,11 @@ async def watch_buttons():
     while True:
         old_mode = mode
         while nixie.button_L_state():
-            logging.info(f"Guzik Prawy:{nixie.button_R_state()} Guzik Lewy:{nixie.button_L_state()}")
+            #logging.info(f"Guzik Prawy:{nixie.button_R_state()} Guzik Lewy:{nixie.button_L_state()}")
             #mode = "Seconds"
-            #mode = old_mode
-            #logging.info("The Button Has been pressed !")
             await asyncio.sleep(1)
+        #mode = old_mode
+
 
 
 
