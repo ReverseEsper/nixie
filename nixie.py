@@ -3,6 +3,7 @@ __TEST__ = False
 import asyncio
 import datetime
 import time
+import logging
 
 if __TEST__:
     import nixie.nixie_stub
@@ -38,7 +39,7 @@ async def main():
     calendar_task = asyncio.create_task(calendar())
     main_task = asyncio.create_task(swap_modes())
     seconds_task = asyncio.create_task(seconds())
-    #buttons_task = asyncio.create_task(watch_buttons())
+    buttons_task = asyncio.create_task(watch_buttons())
     await main_task
 
 
@@ -117,10 +118,11 @@ async def swap_modes():
 async def watch_buttons():
     global mode
     while True:
-        old_mode = mode
-        while nixie.button_R_state():
-            mode = "Seconds"
-        mode = old_mode
+        # old_mode = mode
+        # while nixie.button_R_state():
+        #     mode = "Seconds"
+        # mode = old_mode
+        logging.warnings("The Button Has been pressed !")
  
         await asyncio.sleep(0.1)
 
