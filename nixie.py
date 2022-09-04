@@ -65,6 +65,7 @@ async def clock():
             display_table['Dot'] = now.second%2
         await refresh_display()
         await asyncio.sleep(1)
+        logging.info("Second Has Passed")
 
 async def calendar():
     global display_table,mode
@@ -122,7 +123,7 @@ async def watch_buttons():
         # while nixie.button_R_state():
         #     mode = "Seconds"
         # mode = old_mode
-        logging.warnings("The Button Has been pressed !")
+        logging.info("The Button Has been pressed !")
  
         await asyncio.sleep(0.1)
 
