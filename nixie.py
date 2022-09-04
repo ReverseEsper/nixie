@@ -121,7 +121,8 @@ async def watch_buttons():
     global mode
     while True:
         old_mode = mode
-        while nixie.button_R_state():
+        while nixie.button_L_state():
+            logging.info(nixie.button_R_state())
             mode = "Seconds"
         #mode = old_mode
             logging.info("The Button Has been pressed !")
