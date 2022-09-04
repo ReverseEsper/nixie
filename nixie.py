@@ -4,6 +4,7 @@ import asyncio
 import datetime
 import time
 import logging
+logging.basicConfig(filename='/var/log/nixie.log', encoding='utf-8', level=logging.DEBUG)
 
 if __TEST__:
     import nixie.nixie_stub
