@@ -122,11 +122,11 @@ async def watch_buttons():
     while True:
         old_mode = mode
         while nixie.button_L_state():
-            logging.info(nixie.button_R_state())
-            mode = "Seconds"
-        #mode = old_mode
-            logging.info("The Button Has been pressed !")
-            await asyncio.sleep(0.1)
+            logging.info(f"Guzik Prawy:{nixie.button_R_state()} Guzik Lewy:{nixie.button_L_state()}")
+            #mode = "Seconds"
+            #mode = old_mode
+            #logging.info("The Button Has been pressed !")
+            await asyncio.sleep(1)
 
 
 
