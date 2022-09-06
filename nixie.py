@@ -4,14 +4,15 @@ import asyncio
 import datetime
 import time
 import logging
-logging.basicConfig(filename='/var/log/nixie.log', level=logging.DEBUG)
 
 if __TEST__:
     import nixie.nixie_stub
     nixie = nixie.nixie_stub.NixieStub()
+    logging.basicConfig(filename='nixie.log', level=logging.DEBUG)
 else:
     import nixie.nixie
     nixie = nixie.nixie.Nixie()
+    logging.basicConfig(filename='/var/log/nixie.log', level=logging.DEBUG)
 
 
 def is_day():
@@ -40,7 +41,7 @@ async def main():
     calendar_task = asyncio.create_task(calendar())
     main_task = asyncio.create_task(swap_modes())
     seconds_task = asyncio.create_task(seconds())
-    buttons_task = asyncio.create_task(watch_buttons())
+    #buttons_task = asyncio.create_task(watch_buttons())
     showoff_task = asyncio.create_task(showoff())
     
     await main_task
@@ -97,10 +98,9 @@ async def seconds():
         await asyncio.sleep(1)
 
 async def showoff():
-    global display_table
+    global display_table,mode
     while True:
         if mode == "Showoff":
-
             display_table['Digit4'] = 11
             display_table['Digit3'] = 11
             display_table['Digit2'] = 11
@@ -123,6 +123,7 @@ async def showoff():
                 await refresh_display()
                 await asyncio.sleep(0.1)
             await asyncio.sleep(5)
+        await asyncio.sleep(1)
 
     
 
