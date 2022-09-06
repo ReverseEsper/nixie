@@ -101,28 +101,28 @@ async def showoff():
     while True:
         if mode == "Showoff":
 
-        display_table['Digit4'] = 11
-        display_table['Digit3'] = 11
-        display_table['Digit2'] = 11
-        display_table['Digit1'] = 11
-        display_table['Dot'] = 0
-        await refresh_display()
-        await asyncio.sleep(0.1)
-        for i in range(0,10):
-            display_table['Digit4'] = i
-            display_table['Digit3'] = i
-            display_table['Digit2'] = i
-            display_table['Digit1'] = i
+            display_table['Digit4'] = 11
+            display_table['Digit3'] = 11
+            display_table['Digit2'] = 11
+            display_table['Digit1'] = 11
+            display_table['Dot'] = 0
             await refresh_display()
             await asyncio.sleep(0.1)
-        for i in range(9,1,-1):
-            display_table['Digit4'] = i
-            display_table['Digit3'] = i
-            display_table['Digit2'] = i
-            display_table['Digit1'] = i
-            await refresh_display()
-            await asyncio.sleep(0.1)
-        await asyncio.sleep(5)
+            for i in range(0,10):
+                display_table['Digit4'] = i
+                display_table['Digit3'] = i
+                display_table['Digit2'] = i
+                display_table['Digit1'] = i
+                await refresh_display()
+                await asyncio.sleep(0.1)
+            for i in range(9,1,-1):
+                display_table['Digit4'] = i
+                display_table['Digit3'] = i
+                display_table['Digit2'] = i
+                display_table['Digit1'] = i
+                await refresh_display()
+                await asyncio.sleep(0.1)
+            await asyncio.sleep(5)
 
     
 
