@@ -125,7 +125,7 @@ async def showoff():
                 display_table['Digit1'] = i
                 await refresh_display()
                 await asyncio.sleep(0.02)
-            await asyncio.sleep(5)
+            await asyncio.sleep(3)
         await asyncio.sleep(1)
 
     
