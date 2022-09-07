@@ -136,8 +136,9 @@ async def swap_modes():
     global mode
     tasks = (
         { "task": "Zegar", "time": 25},
-        { "task": "Calendar", "time": 5},
-        { "task": "Showoff", "time": 3}
+        { "task": "Showoff", "time": 2},
+        { "task": "Calendar", "time": 3},
+        { "task": "Showoff", "time": 2}
     )
     
 
