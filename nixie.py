@@ -93,10 +93,10 @@ async def clock():
     while True:
         if mode == "Zegar":
             now = datetime.datetime.now()            
-            flashing(now.minute%10,'Digit4') 
-            flashing(int(now.minute/10),'Digit3') 
-            flashing(now.hour%10,'Digit2') 
-            flashing(int(now.hour/10),'Digit1') 
+            await flashing(now.minute%10,'Digit4') 
+            await flashing(int(now.minute/10),'Digit3') 
+            await flashing(now.hour%10,'Digit2') 
+            await flashing(int(now.hour/10),'Digit1') 
             display_table['Dot'] = now.second%2
         await refresh_display()
         await asyncio.sleep(1)
