@@ -114,9 +114,9 @@ async def showoff():
                 display_table['Digit2'] = i
                 display_table['Digit1'] = i
                 await refresh_display()
-                await asyncio.sleep(0.02)
+                await asyncio.sleep(0.01)
             
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(0.2)
             
             for i in range(9,-2,-1):
                 display_table['Digit4'] = i
@@ -124,8 +124,8 @@ async def showoff():
                 display_table['Digit2'] = i
                 display_table['Digit1'] = i
                 await refresh_display()
-                await asyncio.sleep(0.02)
-            await asyncio.sleep(0.5)
+                await asyncio.sleep(0.01)
+            await asyncio.sleep(0.2)
         await asyncio.sleep(1)
 
     
