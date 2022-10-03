@@ -125,7 +125,7 @@ async def showoff():
                 display_table['Digit1'] = i
                 await refresh_display()
                 await asyncio.sleep(0.02)
-            await asyncio.sleep(3)
+            await asyncio.sleep(0.5)
         await asyncio.sleep(1)
 
     
@@ -138,7 +138,7 @@ async def swap_modes():
          { "task": "Zegar", "time": 25},
         { "task": "Showoff", "time": 2},
         { "task": "Calendar", "time": 3},
-        { "task": "Showoff", "time": 2}
+        { "task": "Showoff", "time": 1}
     ]
     
 
