@@ -65,7 +65,7 @@ async def flashing(target,field):
     sign = -1 if a > b else 1
     for i in range(a,b+sign,sign):
         display_table[field] = i
-        logging.info(f"i:{i} a:{a}, b:{b}")
+        #logging.info(f"i:{i} a:{a}, b:{b}")
         await refresh_display()
         await asyncio.sleep(0.02)
 
