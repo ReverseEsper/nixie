@@ -63,6 +63,8 @@ async def flashing(target,field):
     a = display_table[field]
     b = target
     sign = -1 if a > b else 1
+    if a == b:
+        return
     for i in range(a,b+sign,sign):
         display_table[field] = i
         #logging.info(f"i:{i} a:{a}, b:{b}")
