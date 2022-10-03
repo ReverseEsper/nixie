@@ -58,6 +58,7 @@ async def refresh_display():
 
 
 async def flashing(target,field):
+    logging.info("Debug flashing")
     global display_table
     a = display_table[field]
     b = target
