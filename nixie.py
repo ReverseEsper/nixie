@@ -42,7 +42,7 @@ async def main():
     main_task = asyncio.create_task(swap_modes())
     seconds_task = asyncio.create_task(seconds())
     #buttons_task = asyncio.create_task(watch_buttons())
-    showoff_task = asyncio.create_task(showoff())
+    #showoff_task = asyncio.create_task(showoff())
     
     await main_task
 
