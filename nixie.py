@@ -57,20 +57,6 @@ async def refresh_display():
     nixie.update_display()
 
 
-async def clock():
-    global display_table,mode
-    while True:
-        if mode == "Zegar":
-            now = datetime.datetime.now()
-            display_table['Digit4'] = now.minute%10
-            display_table['Digit3'] = int(now.minute/10)
-            display_table['Digit2'] = now.hour%10
-            display_table['Digit1'] = int(now.hour/10)
-            display_table['Dot'] = now.second%2
-        await refresh_display()
-        await asyncio.sleep(1)
-
-
 async def flashing(target,field):
     global display_table
     a = display_table[field]
@@ -80,6 +66,24 @@ async def flashing(target,field):
         display_table[field] = i
         await refresh_display()
         await asyncio.sleep(0.02)
+
+
+async def clock():
+    global display_table,mode
+    while True:
+        if mode == "Zegar":
+            now = datetime.datetime.now()
+            flashing(now.minute%10,'Digit4') 
+            #display_table['Digit4'] = now.minute%10
+            display_table['Digit3'] = int(now.minute/10)
+            display_table['Digit2'] = now.hour%10
+            display_table['Digit1'] = int(now.hour/10)
+            display_table['Dot'] = now.second%2
+        await refresh_display()
+        await asyncio.sleep(1)
+
+
+
 
 
 async def clock2():
