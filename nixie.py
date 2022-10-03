@@ -75,7 +75,7 @@ async def clock():
     while True:
         if mode == "Zegar":
             now = datetime.datetime.now()
-            flashing(now.minute%10,'Digit4') 
+            await flashing(now.minute%10,'Digit4') 
             #display_table['Digit4'] = now.minute%10
             display_table['Digit3'] = int(now.minute/10)
             display_table['Digit2'] = now.hour%10
